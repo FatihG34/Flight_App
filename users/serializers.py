@@ -1,5 +1,6 @@
 from rest_framework import serializers, validators
 from django.contrib.auth.models import User
+# from django.conf import settings
 from django.contrib.auth.password_validation import validate_password
 
 
@@ -23,6 +24,7 @@ class ResisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
+        # model = settings.AUTH_USER_MODEL
         fields = (
             "username",
             "email",
@@ -31,3 +33,19 @@ class ResisterSerializer(serializers.ModelSerializer):
             "password",
             "password1"
         )
+    def validate(self, data):
+        if data['password'] != data['password1']:
+            raise serializers.ValidationError(
+                {
+                    "password":"Password didn't match..."
+                }
+            )
+        return data
+    
+    def create(self, validated_data):
+        password = validated_data.pop('password')
+        validated_data.pop('password1')
+        user = User.objects.create(**validated_data)
+        user.set_password(password)
+        user.save()
+        return user
