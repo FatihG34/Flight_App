@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     "rest_framework",
     # Third party apps:
     "drf_yasg",
+    'rest_framework.authtoken',
+    'dj_rest_auth',
 
     # my apps
     "users",
