@@ -25,7 +25,7 @@ class ReservationSerializer(serializers.ModelSerializer):
     flight = serializers.StringRelatedField()   # default
     flight_id = serializers.IntegerField(write_only=True)
     user = serializers.StringRelatedField()  # default
-    user_id = serializers.IntegerField(write_only=True)
+    user_id = serializers.IntegerField(write_only=True, required=False)
     class Meta:
         model = Reservation
         fields = (
@@ -47,5 +47,5 @@ class ReservationSerializer(serializers.ModelSerializer):
             resevation.passenger.add(pas)
 
         resevation.save()
-        
+
         return resevation
