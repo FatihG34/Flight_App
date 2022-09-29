@@ -41,4 +41,11 @@ class ReservationSerializer(serializers.ModelSerializer):
         passenger_data = validated_data.pop('passenger')
         validated_data['user_id'] = self.context['request'].user.id
         resevation =Reservation.objects.create(**validated_data)
+
+        for passenger in passenger_data:
+            pas = Passenger.objects.create(**passenger)
+            resevation.passenger.add(pas)
+
+        resevation.save()
+        
         return resevation
