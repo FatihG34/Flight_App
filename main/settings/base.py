@@ -138,3 +138,8 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     ]
 }
+
+REST_AUTH_SERIALIZERS = {
+    # 'TOKEN_SERIALIZER': 'path.to.custom.TokenSerializer', yapılması gerekenler ile örnek aşağıda ki gibi
+    'TOKEN_SERIALIZER': 'users.serializers.CustomTokenSerializer',
+}

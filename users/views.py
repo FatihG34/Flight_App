@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from users.serializers import ResisterSerializer 
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
+
 # Create your views here.
 
 class RegisterView(generics.CreateAPIView):
@@ -18,6 +19,6 @@ class RegisterView(generics.CreateAPIView):
             token = Token.objects.get(user=user)
             data['token'] = token.key
         else:
-            data['error'] = ''
+            data['error'] = 'User does not have token . Try again ...'
         headers = self.get_success_headers(serializer.data)
         return Response(data, status=status.HTTP_201_CREATED, headers=headers)
