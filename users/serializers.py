@@ -60,12 +60,13 @@ class UserSerializer(serializers.ModelSerializer):
             "username",
             "email"
         )
-    
+
+
 class CustomTokenSerializer(TokenSerializer):
-    user =UserSerializer(read_only=True)
+    user = UserSerializer(read_only=True)
+
     class Meta(TokenSerializer.Meta):
-        fields=(
+        fields = (
             'key',
             'user'
         )
-
